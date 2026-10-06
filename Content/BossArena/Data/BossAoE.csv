@@ -1,0 +1,12 @@
+---,CastName,Shape,Radius,InnerRadius,ConeAngle,Length,Width,Placement,Count,CastTime,Damage,ActiveDuration,TickInterval,SweepDegreesPerSecond,bInterruptible,bUnblockable,bRequiresLineOfSight,Color,RaidWarning,ImpactEffect
+ConeSwipe,Ashen Cleave,Cone,1000,0,100,0,0,Self,1,1.8,3500,0,0.25,0,False,False,False,"(R=1.0,G=0.35,B=0.05,A=1.0)",,
+Meteor,Meteor,Circle,450,0,0,0,0,TopThreat,1,2.4,4500,0,0.25,0,False,False,False,"(R=1.0,G=0.05,B=0.05,A=1.0)",Meteor on the tank - dodge out!,
+MeteorRain,Meteor Rain,Circle,400,0,0,0,0,EachPlayer,1,2.4,3500,0,0.25,0,False,False,False,"(R=1.0,G=0.05,B=0.05,A=1.0)",Meteors on everyone - spread and dodge!,
+DonutSlam,Cinder Ring,Donut,2600,380,0,0,0,Self,1,3.0,5000,0,0.25,0,False,False,False,"(R=1.0,G=0.35,B=0.05,A=1.0)",Cinder Ring - get under the boss!,
+RotatingBeam,Searing Beams,RotatingSweep,0,0,0,2600,220,Self,2,2.5,700,6.0,0.25,40,False,False,False,"(R=1.0,G=0.85,B=0.1,A=1.0)",Searing Beams - move with the sweep or dodge through!,
+ExpandingCircle,Searing Nova,Circle,2600,0,0,0,0,Self,1,5.0,9000,0,0.25,0,True,False,False,"(R=0.7,G=0.2,B=1.0,A=1.0)",Searing Nova - INTERRUPT with Shockwave!,
+SummonAdds,Call the Embers,Circle,250,0,0,0,0,ArenaCenter,3,2.0,1500,0,0.25,0,False,False,False,"(R=1.0,G=0.35,B=0.05,A=1.0)",Ember Spawns incoming!,
+PhaseTransition,Ashfall Eruption,Circle,4000,0,0,0,0,ArenaCenter,1,3.0,6000,0,0.25,0,False,False,True,"(R=1.0,G=0.05,B=0.05,A=1.0)",Ashfall Eruption - hide behind a pillar or dodge the blast!,
+HardEnrage,Annihilation,Circle,6000,0,0,0,0,ArenaCenter,1,4.0,999999,0,0.25,0,False,True,False,"(R=1.0,G=0.05,B=0.05,A=1.0)",ANNIHILATION - there is no escape!,
+AddExplodingPuddle,Exploding Puddle,Circle,260,0,0,0,0,TopThreat,1,1.6,800,0,0.25,0,False,False,False,"(R=1.0,G=0.35,B=0.05,A=1.0)",,
+AddChargeLine,Ember Charge,Line,0,0,0,900,160,Self,1,1.4,1000,0,0.25,0,False,False,False,"(R=1.0,G=0.35,B=0.05,A=1.0)",,
