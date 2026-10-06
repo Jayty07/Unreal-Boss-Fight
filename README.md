@@ -35,7 +35,7 @@ Everything also works without the generated assets. The game mode spawns a defau
 | **Left Shift** | **Dodge** (3 s CD) | Dash in input direction (backstep with no input), 0.45 s i-frames |
 | RMB (hold) | Block | 50% mitigation, *not* immunity |
 
-Console commands (non-shipping builds, routed to the server): `StartFight`, `ResetFight`, `SetBossHealth 0.65`, `SkipEncounterTime 475` (soft enrage) / `595` (hard enrage), `ToggleHoldToAim` (press = preview the AoE, release = cast), `SetMouseSensitivity 0.35` (camera look speed, default 0.35, saved between sessions).
+Console commands (non-shipping builds, routed to the server): `StartFight`, `ResetFight`, `SetBossHealth 0.65`, `SkipEncounterTime 475` (soft enrage) / `595` (hard enrage), `ToggleHoldToAim` (press = preview the AoE, release = cast), `SetMouseSensitivity 0.35` (camera look speed, default 0.35, saved between sessions), `BossArena.ImpactVFX 0|1` (procedural impact effects), `BossArena.ImpactShake 0..2` (impact camera shake scale).
 
 ## Architecture
 
@@ -101,7 +101,7 @@ The C++ is asset-independent and uses greybox capsules and engine shapes. To add
    - `Block` loop pose layered on the upper body while `bIsBlocking`.
    - `Death` when `bIsDead`.
    - Then `Slot 'DefaultSlot'` → Output for the ability and dodge montages.
-4. **Niagara:** set `ImpactEffect` in `DT_BossAoE` rows. Telegraph actors play it on impact for every client.
+4. **Impact VFX / Niagara:** every AoE already plays a procedural, shape-matched impact (`AAoEImpactVFX`: white-hot flash, wavefront, shockwave ring, erupting pillars, debris, sparks, light flash, camera shake) with no assets needed. Warrior hits use a lighter version, and the rotating beam and lingering zones emit sparks while active. To replace a boss attack's effect, set `ImpactEffect` in its `DT_BossAoE` row: the Niagara system then plays on every client instead of the procedural one.
 5. **Boss/adds:** set meshes in `BP_Boss` / `BP_BossAdd`. To use BP adds, set `AddClass` on `GA_Boss_SummonAdds`, or create a BP child of it.
 
 ## Tuning without C++

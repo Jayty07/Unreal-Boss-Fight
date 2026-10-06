@@ -1,6 +1,7 @@
 #include "AoE/AoEPersistentZone.h"
 
 #include "AbilitySystemComponent.h"
+#include "AoE/AoEImpactVFX.h"
 #include "AoE/AoEShapeMeshComponent.h"
 #include "AoE/BossArenaAoELibrary.h"
 #include "BossArenaCharacterBase.h"
@@ -93,7 +94,8 @@ void AAoEPersistentZone::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
-	const float Age = float(GetWorld()->GetTimeSeconds() - LocalSpawnTime);
+	const double LocalNow = GetWorld()->GetTimeSeconds();
+	const float Age = float(LocalNow - LocalSpawnTime);
 	const float FadeIn = FMath::Clamp(Age / 0.25f, 0.0f, 1.0f);
 	const float FadeOut = FMath::Clamp((Duration - Age) / 0.5f, 0.0f, 1.0f);
 	const float Pulse = 0.8f + 0.2f * FMath::Sin(Age * 6.0f);
@@ -101,4 +103,10 @@ void AAoEPersistentZone::Tick(float DeltaSeconds)
 
 	ShapeMesh->SetShape(Shape, 1.0f);
 	ShapeMesh->SetStyle(Color, 0.0f, 0.8f * Alpha, 0.35f * Pulse * Alpha);
+
+	if (Alpha > 0.5f && LocalNow >= NextPulseTime)
+	{
+		NextPulseTime = LocalNow + 0.35;
+		AAoEImpactVFX::Spawn(this, Shape, GetActorTransform(), Color, EAoEImpactVFXStyle::Pulse);
+	}
 }

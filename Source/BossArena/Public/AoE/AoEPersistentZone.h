@@ -48,5 +48,6 @@ protected:
 	float TickInterval = 0.5f;
 	float DamagePerTick = 100.0f;
 	double LocalSpawnTime = 0.0;
+	double NextPulseTime = 0.0;
 	FTimerHandle TickTimer;
 };
