@@ -104,11 +104,15 @@ public:
 	UFUNCTION(Exec)
 	void ToggleHoldToAim();
 
+	/** Exec: e.g. "SetMouseSensitivity 0.25". Saved to config. */
+	UFUNCTION(Exec)
+	void SetMouseSensitivity(float NewSensitivity);
+
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "Input")
 	bool bHoldToAim = false;
 
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "Input")
-	float LookSensitivity = 1.0f;
+	float LookSensitivity = 0.35f;
 
 protected:
 	virtual void GiveDefaultAbilities() override;
