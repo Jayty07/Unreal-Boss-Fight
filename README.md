@@ -35,7 +35,7 @@ Everything also works without the generated assets. The game mode spawns a defau
 | **Left Shift** | **Dodge** (3 s CD) | Dash in input direction (backstep with no input), 0.45 s i-frames |
 | RMB (hold) | Block | 50% mitigation, *not* immunity |
 
-Console commands (non-shipping builds, routed to the server): `StartFight`, `ResetFight`, `SetBossHealth 0.65`, `SkipEncounterTime 475` (soft enrage) / `595` (hard enrage), `ToggleHoldToAim` (press = preview the AoE, release = cast).
+Console commands (non-shipping builds, routed to the server): `StartFight`, `ResetFight`, `SetBossHealth 0.65`, `SkipEncounterTime 475` (soft enrage) / `595` (hard enrage), `ToggleHoldToAim` (press = preview the AoE, release = cast), `SetMouseSensitivity 0.35` (camera look speed, default 0.35, saved between sessions).
 
 ## Architecture
 

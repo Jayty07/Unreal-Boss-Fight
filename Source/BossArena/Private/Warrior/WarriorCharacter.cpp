@@ -395,6 +395,12 @@ void AWarriorCharacter::ToggleHoldToAim()
 	SaveConfig();
 }
 
+void AWarriorCharacter::SetMouseSensitivity(float NewSensitivity)
+{
+	LookSensitivity = FMath::Clamp(NewSensitivity, 0.05f, 5.0f);
+	SaveConfig();
+}
+
 void AWarriorCharacter::ServerSetHoldToAim_Implementation(bool bEnabled)
 {
 	bReplicatedHoldToAim = bEnabled;
