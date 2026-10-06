@@ -70,7 +70,7 @@ public:
 
 	const FAoETelegraphParams& GetParams() const { return Params; }
 
-	/** Server: impact flash + optional Niagara burst on every client. */
+	/** Server: impact burst on every client (ImpactEffect Niagara if set, else the procedural AAoEImpactVFX). */
 	UFUNCTION(NetMulticast, Unreliable)
 	void MulticastImpact(UNiagaraSystem* ImpactEffect);
 
@@ -89,6 +89,10 @@ protected:
 	UPROPERTY(Replicated)
 	float BaseYaw = 0.0f;
 
+	void UpdateActiveVFX();
+
 	double LocalImpactTime = -1.0;
+	double NextPulseTime = 0.0;
+	bool bPlayedActiveBurst = false;
 	double LocalSpawnTime = 0.0;
 };

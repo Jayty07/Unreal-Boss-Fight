@@ -1,5 +1,6 @@
 #include "AoE/AoETelegraphActor.h"
 
+#include "AoE/AoEImpactVFX.h"
 #include "AoE/AoEShapeMeshComponent.h"
 #include "AoE/BossArenaAoELibrary.h"
 #include "Engine/World.h"
@@ -82,6 +83,11 @@ void AAoETelegraphActor::BeginPlay()
 		return;
 	}
 	RefreshVisual();
+
+	if (Params.Style == EAoETelegraphStyle::PlayerFlash)
+	{
+		AAoEImpactVFX::Spawn(this, Params.Shape, GetActorTransform(), Params.Color, EAoEImpactVFXStyle::PlayerImpact);
+	}
 }
 
 void AAoETelegraphActor::OnRep_Params()
@@ -105,6 +111,36 @@ void AAoETelegraphActor::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 	RefreshVisual();
+	UpdateActiveVFX();
+}
+
+void AAoETelegraphActor::UpdateActiveVFX()
+{
+	if (Params.Style != EAoETelegraphStyle::Enemy || Params.ActiveDuration <= 0.0f)
+	{
+		return;
+	}
+
+	const double Now = UBossArenaAoELibrary::GetServerTime(this);
+	const double ActiveStart = Params.StartServerTime + Params.CastTime;
+	if (Now < ActiveStart || Now > ActiveStart + Params.ActiveDuration)
+	{
+		return;
+	}
+
+	const FTransform LiveTransform(GetRotationAtServerTime(Now), GetActorLocation());
+	if (!bPlayedActiveBurst)
+	{
+		bPlayedActiveBurst = true;
+		AAoEImpactVFX::Spawn(this, Params.Shape, LiveTransform, Params.Color, EAoEImpactVFXStyle::BossImpact);
+	}
+
+	const double LocalNow = GetWorld()->GetTimeSeconds();
+	if (LocalNow >= NextPulseTime)
+	{
+		NextPulseTime = LocalNow + 0.12;
+		AAoEImpactVFX::Spawn(this, Params.Shape, LiveTransform, Params.Color, EAoEImpactVFXStyle::Pulse);
+	}
 }
 
 void AAoETelegraphActor::RefreshVisual()
@@ -162,5 +198,9 @@ void AAoETelegraphActor::MulticastImpact_Implementation(UNiagaraSystem* ImpactEf
 	if (ImpactEffect)
 	{
 		UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactEffect, GetActorLocation(), GetActorRotation());
+	}
+	else
+	{
+		AAoEImpactVFX::Spawn(this, Params.Shape, GetActorTransform(), Params.Color, EAoEImpactVFXStyle::BossImpact);
 	}
 }
